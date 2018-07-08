@@ -1,3 +1,2 @@
-'use strict';
-require('../module.js');
-console.log('hello index');
+let modu=require('../module.js');
+console.log(modu.bbb);

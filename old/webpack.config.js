@@ -1,13 +1,12 @@
-const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin   = require('html-webpack-plugin');
+const path = require('path');
 
 let  WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
 let getHtmlConfig=function(name) {
   return {
     template: './src/view/' + name + '.html',
-    favicon: './favicon.ico',
     filename:  'view/' + name + '.html',
     inject: true,
     hash: true,
@@ -29,43 +28,13 @@ const config = {
     'jquery': 'window.jQuery'
   },
   module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
-      },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-              name: 'resource/[name].[ext]'
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-              name: 'resource/[name].[ext]'
-            }
-          }
-        ]
-      }
+    loaders: [
+      { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader","css-loader") },
+      { test: /\.(gif|png|jpg|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=100&name=resource/[name].[ext]' }
     ]
   },
   resolve: {
     alias: {
-      node_modules: path.resolve(__dirname,'node_modules'),
       util: path.resolve(__dirname,'src/util'),
       page: path.resolve(__dirname, 'src/page'),
       image: path.resolve(__dirname, 'src/image'),
@@ -75,7 +44,7 @@ const config = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
-      filename: 'js/base.js'
+      filename:'js/base.js'
     }),
     new ExtractTextPlugin("css/[name].css"),
     new HtmlWebpackPlugin(getHtmlConfig('index'))
