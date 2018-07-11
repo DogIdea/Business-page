@@ -6,8 +6,8 @@
 .nav .user{
     float: left;
 }
-.nav .user.login{
-    display: none;
+.nav .not-login{
+    display:block !important;
 }
 .nav .user .link{
     margin-right: 5px;
