@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lange="en">
     <head>
-        <%= require('html-loader!./layout/head-common.html')%>
+        <%= require('html-loader!./layout/head-common.html') %>
         <title>business-page</title>
     </head>
     <body>
-        <%= require('html-loader!./layout/nav-simple.html')%>
-        hello word
-        <i class="fa fa-user"></i>
-        <%= require('html-loader!./layout/footer.html')%>
+        <%= require('html-loader!./layout/nav.html')  %>
+        <%= require('html-loader!./layout/header.html')  %>
+        <div class="page-wrap w">
+            <%= require('html-loader!./layout/nav-side.html') %>
+            <div class="content with-nav"></div>
+        </div>
+        <%= require('html-loader!./layout/footer.html') %>
     </body>
 </html>

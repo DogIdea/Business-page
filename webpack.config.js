@@ -4,11 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let  WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
-let getHtmlConfig=function(name) {
+let getHtmlConfig=function(name,title) {
   return {
     template: './src/view/' + name + '.html',
     favicon: './favicon.ico',
     filename:  'view/' + name + '.html',
+    title: title,
     inject: true,
     hash: true,
     chunks: ['common', name]
@@ -18,7 +19,9 @@ const config = {
   entry:{
     'common': ['./src/page/common/index.js'],
     'index': ['./src/page/index/index.js'],
-    'login': ['./src/page/login/index.js']
+    'login': ['./src/page/login/index.js'],
+    'result': ['./src/page/result/index.js']
+
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -30,6 +33,14 @@ const config = {
   },
   module: {
     rules: [
+      {
+        test:/\.string$/,
+        use:[
+          {
+            loader: 'html-loader'
+          }
+        ]
+      },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
@@ -78,7 +89,9 @@ const config = {
       filename: 'js/base.js'
     }),
     new ExtractTextPlugin("css/[name].css"),
-    new HtmlWebpackPlugin(getHtmlConfig('index'))
+    new HtmlWebpackPlugin(getHtmlConfig('index','首页')),
+    // new HtmlWebpackPlugin(getHtmlConfig('login','登录')),
+    new HtmlWebpackPlugin(getHtmlConfig('result','操作结果'))
  ]
 }
 if('dev' === WEBPACK_ENV){
