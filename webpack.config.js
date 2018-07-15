@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-let  WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
+let WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
 let getHtmlConfig=function(name,title) {
   return {
     template: './src/view/' + name + '.html',
@@ -19,7 +19,7 @@ const config = {
   entry:{
     'common': ['./src/page/common/index.js'],
     'index': ['./src/page/index/index.js'],
-    'login': ['./src/page/login/index.js'],
+    'user-login': ['./src/page/user-login/index.js'],
     'result': ['./src/page/result/index.js']
 
   },
@@ -90,12 +90,23 @@ const config = {
     }),
     new ExtractTextPlugin("css/[name].css"),
     new HtmlWebpackPlugin(getHtmlConfig('index','首页')),
-    // new HtmlWebpackPlugin(getHtmlConfig('login','登录')),
+    new HtmlWebpackPlugin(getHtmlConfig('user-login','登录')),
     new HtmlWebpackPlugin(getHtmlConfig('result','操作结果'))
- ]
+ ],
+  devServer: {
+    port: 8088,
+    inline: true,
+    historyApiFallback: {
+      index:'/dist/view/index.html'
+    },
+    proxy: {
+      '/user/': {
+        target:'http://admintest.happymmall.com',
+        changeOrigin:true
+      },
+    }
+  }
 }
-if('dev' === WEBPACK_ENV){
-  config.entry.common.push('webpack-dev-server/client?http://localhost:8088/');
-}
+
 
 module.exports=config;

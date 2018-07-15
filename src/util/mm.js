@@ -16,7 +16,7 @@ let _mm ={
                 }else if(10 === res.status) {
                     _this.doLogin();
                 }else if(1 === res.status) {
-                    typeof param.error === 'function' && param.error(err.msg);
+                    typeof param.error === 'function' && param.error(res.msg);
                 }
             },
             error: function(err){
@@ -44,19 +44,19 @@ let _mm ={
         alert(msg || '哪里不对了！');
     },
     validate: function(value,type) {
-        let value = $.trim(value);
+        let _value = $.trim(value);
         if('require' === type) {
-            return !!vlaue;
+            return !! _value;
         }
         if('phone' === type) {
-            return /^1\d{10}$/.test(value);
+            return /^1\d{10}$/.test(_value);
         }
         if('email' === type) {
-            return /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/.test(value);
+            return /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/.test(_value);
         }
     },
     doLogin: function() {
-        window.location.href = './login.html?redirect=' + encodeURIComponent(window.location.href)
+        window.location.href = './user-login.html?redirect=' + encodeURIComponent(window.location.href)
     },
     goHome: function() {
         window.location.href = './index.html'
