@@ -1,7 +1,7 @@
 let _mm = require('util/mm.js');
 let _user={
-    login:function(userInfo, resolve, reject) {
-        _mm.require({
+    login: function(userInfo, resolve, reject) {
+        _mm.request({
             url: _mm.getServerUrl('/user/login.do'),
             data: userInfo,
             method: 'POST',
