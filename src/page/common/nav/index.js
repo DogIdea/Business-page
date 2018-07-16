@@ -1,7 +1,7 @@
 require('./index.css');
 let _mm = require('util/mm.js');
 let _user = require('service/user-service.js');
-let _cart   = require('service/cart-service.js');
+let _cart = require('service/cart-service.js');
 
 let nav={
     init: function() {
@@ -14,7 +14,7 @@ let nav={
         $('.js-login').click(function() {
             _mm.doLogin();
         });
-        $('js-register').click(function() {
+        $('.js-register').click(function() {
             window.location.href = './user-register.html';
         });
         $('.js-logout').click(function() {
@@ -27,14 +27,15 @@ let nav={
         
     },
     loadUserInfo: function() {
-        _user.checkUsername(function(res){
-            $('.not-login').hide().siblings('.login').show().find('.username').text(res.username);
+        _user.getUserInfo(function(res){
+            $('.not-login').hide().siblings('.login').show()
+            .find('.username').text(res.username);
         },function(errMsg){
 
         })
     },
     loadCartCount: function() {
-        _cart.getCartCount(function(res) {
+        _cart.getcartCount(function(res) {
             $('.nav .cart-count').text(res || 0);
         },function(errMsg) {
             $('.nav .cart-count').text(0);
