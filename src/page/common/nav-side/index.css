@@ -10,7 +10,7 @@
 }
 
 .nav-side .nav-item .link{
-    color: #666;
+    color: #888;
 }
 .nav-side .nav-item .link:hover{
     color:#e80012;
@@ -22,5 +22,5 @@
 
 .content.with-nav{
     float:left;
-    width: 95px;
+    width: 950px;
 }
