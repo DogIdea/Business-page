@@ -25,7 +25,6 @@ let navSide={
         let navHtml = _mm.renderHtml(templateIndex, {
             navList: this.option.navList
         });
-        console.log("1");
         $('.nav-side').html(navHtml);
     }
 }
