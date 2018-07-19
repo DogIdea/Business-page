@@ -3,6 +3,7 @@ let _mm = require('util/mm.js');
 
 let header = {
     init: function() {
+        this.onLoad();
         this.bindEvent();
     },
     onLoad: function() {
