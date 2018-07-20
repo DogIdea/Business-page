@@ -4,7 +4,7 @@ require('page/common/nav/index.js');
 let _mm = require('util/mm.js');
 let _product = require('service/product-service.js');
 let templateIndex = require('./index.string');
-let Pagination = require('util/pagination/index.js')
+let Pagination = require('util/pagination/index.js');
 
 let page = {
     data: {
@@ -13,7 +13,7 @@ let page = {
             categoryId: _mm.getUrlParam('categoryId') || '',
             orderBy: _mm.getUrlParam('orderBy') || 'default',
             pageNum: _mm.getUrlParam('pageNum') || 1,
-            pageSize: _mm.getUrlParam('pageSize') || 2
+            pageSize: _mm.getUrlParam('pageSize') || 20
         }
     },
     init: function() {
