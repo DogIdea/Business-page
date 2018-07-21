@@ -69,3 +69,14 @@
     color: #666;
     text-decoration: none;
 }
+
+.err-tip{
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #f60;
+    font-weight: bold;
+    text-align: center;
+    background: #eee;
+}
