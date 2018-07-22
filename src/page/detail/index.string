@@ -5,8 +5,8 @@
         </div>
         <ul class="p-img-list">
             {{#subImages}}
-            <li class="p-main-item">
-                <img class="p-img-item" src="{{imageHost}}{{.}}" alt="{{name}}" />
+            <li class="p-img-item">
+                <img class="p-img" src="{{imageHost}}{{.}}" alt="{{name}}" />
             </li>
             {{/subImages}}
         </ul>
