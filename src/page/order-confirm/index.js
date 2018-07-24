@@ -48,18 +48,61 @@ let page = {
                 }
             });
         });
+        $(document).on('click', '.address-update', function(e) {
+            e.stopPropagation();
+            let shippingId = $(this).parents('.address-item').data('id');
+            _address.getAddress(shippingId, function(res) {
+                addressModal.show({
+                    isUpdate: true,
+                    data: res,
+                    onSuccess: function() {
+                        _this.loadAddressList();
+                    }
+                });
+            }, function(errMsg) {
+                _mm.errorTips(errMsg);
+            });
+        });
+        $(document).on('click', '.address-delete', function(e) {
+            e.stopPropagation();
+            let id = $(this).parents('.address-item').data('id');
+            if(window.confirm('确认要删除该地址？')) {
+                _address.deleteAddress(id, function(res){
+                    _this.loadAddressList();
+                }, function(errMsg) {
+                    _mm.errorTips(errMsg);
+                })
+            }
+        });
     },
     loadAddressList: function() {
+        $('.address-con').html('<div class="loading"></div>');
         let _this = this;
         _address.getAddressList(function(res) {
+            _this.addressFilter(res);
             let addressListHtml = _mm.renderHtml(templateAddress, res);
             $('.address-con').html(addressListHtml);
         }, function(errMsg) {
             $('.address-con').html('<p class="err-tip">地址加载失败，请刷新后重试</p>');
         })
     },
+    addressFilter: function(data) {
+        if(this.data.selectedAddressId) {
+            let selectedAddressIdFlag = false;
+            for(let i = 0, length = data.list.length; i < length; i++) {
+                if(data.list[i].id === this.data.selectedAddressId) {
+                    data.list[i].isActive = true;
+                    selectedAddressIdFlag = true;
+                }
+            };
+            if(!selectedAddressIdFlag) {
+                this.data.selectedAddressId = null;
+            } 
+        };
+    },
     loadProductList: function() {
         let _this = this;
+        $('.product-con').html('<div class="loading"></div>');
         _order.getProductList(function(res) {
             let productListHtml = _mm.renderHtml(templateProduct, res);
             $('.product-con').html(productListHtml);
