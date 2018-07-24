@@ -76,6 +76,7 @@ input[type='checkbox']{
     color: #fff;
     outline: none;
     cursor: pointer;
+    text-align: center;
     text-decoration: none;
 }
 .btn-min{

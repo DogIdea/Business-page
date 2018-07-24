@@ -6,6 +6,14 @@ let _order={
             success: resolve,
             error: reject
         })
+    },
+    createOrder: function(orderInfo,resolve,reject) {
+        _mm.request({
+            url: _mm.getServerUrl('/order/create.do'),
+            data: orderInf,
+            success: resolve,
+            error: reject
+        })
     }
 }
 module.exports= _order;
