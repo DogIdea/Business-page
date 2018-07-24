@@ -5,6 +5,7 @@ let _order = require('service/order-service.js');
 let _address = require('service/address-service.js')
 let templateProduct = require('./product-list.string');
 let templateAddress = require('./address-list.string');
+let addressModal = require('./address-modal.js')
 let nav = require('page/common/nav/index.js');
 
 let page = {
@@ -13,10 +14,40 @@ let page = {
     },
     init: function() {
         this.onLoad();
+        this.bindEvent();
     },
     onLoad: function() {
         this.loadAddressList();
         this.loadProductList();
+    },
+    bindEvent: function() {
+        let _this = this;
+        $(document).on('click', '.address-item', function() {
+            $(this).addClass('active').siblings('.address-item').removeClass('active');
+            _this.data.selectedAddressId = $(this).data('id');
+        });
+        $(document).on('click', '.order-submit', function() {
+            let shippingId = _this.data.selectedAddressId;
+            if(shippingId) {
+                _order.createOrder({
+                    shippingId: shippingId
+                }, function(res) {
+                    window.location.href = './payment.html?orderNumber=' + res.orderNo;
+                }, function(errMsg) {
+                    _mm.errorTips(errMsg)
+                })
+            }else {
+                _mm.errorTips('请选择地址后再提交')
+            }
+        });
+        $(document).on('click', '.address-add', function() {
+            addressModal.show({
+                isUpdate: false,
+                onSuccess: function() {
+                    _this.loadAddressList();
+                }
+            });
+        });
     },
     loadAddressList: function() {
         let _this = this;
