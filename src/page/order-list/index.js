@@ -12,7 +12,7 @@ let page = {
     data: {
         listParam: {
             pageNum: 1,
-            pageSize: 3
+            pageSize: 2
         }
     },
     init: function() {
@@ -48,9 +48,11 @@ let page = {
     loadPagination: function(pageInfo) {
         let _this = this;
         _this.pagination ? '' : (_this.pagination = new Pagination());
+        console.log(_this.pagination);
         _this.pagination.render($.extend({}, pageInfo, {
             container: $('.pagination'),
             onSelectPage: function(pageNum) {
+                
                 _this.data.listParam.pageNum = pageNum
                 _this.loadOrderList();
             }

@@ -20,7 +20,9 @@ let Pagination = function() {
 }
 Pagination.prototype.render = function(userOption) {
     this.option = $.extend({}, this.defaultOption, userOption);
+    console.log(this.option.pages);
     if(!(this.option.container instanceof jQuery)) {
+        console.log(1);
         return;
     }
     if(this.option.pages <= 1) {
